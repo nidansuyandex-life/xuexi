@@ -1,0 +1,21 @@
+name: Check JSON
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate JSON
+        run: |
+          # 使用 jq 校验 JSON 语法
+          sudo apt-get install -y jq
+          jq . valve.json > /dev/null
+          echo "✅ valve.json 语法合法！"
